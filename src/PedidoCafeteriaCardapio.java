@@ -3,53 +3,70 @@ import java.util.Scanner;
 public class PedidoCafeteriaCardapio {
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Bem vindo ao Café do Java!");
-        System.out.println("Escolha o tamanho do seu café: (P) Pequeno, (M) Médio, (G) Grande");
-        String tamanho = sc.nextLine().toUpperCase();
 
-        System.out.print("Escolha o tipo de café: (E) Expresso, (C) Capuccino, (L) Latte");
-        String tipoCafe = sc.nextLine().toUpperCase();
+        double valorTotal = 0;
+        int quantidadeCafes = 0;
+        boolean continuarPedido = true;
 
-        double preco = 0;
+        while (continuarPedido) {
+            System.out.println("Escolha o tamanho do seu café: (P) Pequeno, (M) Médio, (G) Grande ou (F) Finalizar");
+            String tamanhoCafe = scanner.next().toUpperCase();
 
-        switch (tamanho) {
-            case "P":
-                preco += 2.50;
-                break;
-            case "M":
-                preco += 3.00;
-                break;
-            case "G":
-                preco += 3.50;
-                break;
-            default:
-                System.out.println("Opcão de tamanho inválida!");
-                return;
+            if (tamanhoCafe.equals("F")) {
+                continuarPedido = false;
+            } else {
+                System.out.println("Escolha o tipo de café: (E) Expresso, (C) Capuccino, (L) Latte");
+                String tipoCafe = scanner.next().toUpperCase();
+
+                double preco = 0;
+
+
+                switch (tamanhoCafe) {
+                    case "P":
+                        preco += 2.50;
+                        break;
+                    case "M":
+                        preco += 3.00;
+                        break;
+                    case "G":
+                        preco += 3.50;
+                        break;
+                    default:
+                        System.out.println("Opcão de tamanho inválida!");
+                        continue;
+            }
+                switch (tipoCafe) {
+                    case "E":
+                        preco += 1.50;
+                        System.out.println("Café Expresso selecionado");
+                        break;
+                    case "C":
+                        preco += 2.00;
+                        System.out.println("Café Capuccino selecionado");
+                        break;
+                    case "L":
+                        preco += 2.50;
+                        System.out.println("Café Latte selecionado");
+                        break;
+                    default:
+                        System.out.println("Opção de café inválida!");
+                        continue;
+
+                }
+
+                valorTotal += preco;
+                quantidadeCafes++;
+
+                System.out.println("Café adicionado ao pedido!");
+            }
+
         }
 
-        switch (tipoCafe) {
-            case "E":
-                preco += 1.50;
-                break;
-            case "C":
-                preco += 2.00;
-                break;
-            case "L":
-                preco += 2.50;
-                break;
-            default:
-                System.out.println("Opção de café inválida!");
-                return;
-
-        }
-
-        System.out.println("Seu pedido foi confirmado!");
-        System.out.println("Você escolheu um café " + tamanho + " do tipo " + tipoCafe);
-        System.out.println("Total a pagar: R$" + preco);
-
-        sc.close();
+        System.out.println("Seu pedido foi finalizado. Total a pagar R$" + valorTotal);
+        System.out.println("Quantidade de cafés pedidos: " + quantidadeCafes);
+        scanner.close();
 
     }
 }
